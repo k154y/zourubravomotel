@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZOURU BRAVO MOTEL</title>
+    <style type="text/css">
+        :root {
+            --primary-color: #b8860b;
+            --secondary-color: #fffde0;
+            --dark-color: #333;
+            --light-color: #fff;
+            --accent-color: #d4af37;
+            --text-color: #333;
+            --text-light: #666;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            color: var(--text-color);
+            background-color: var(--light-color);
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+        
+        /* Responsive Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+        
+        .navbar.scrolled {
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light-color);
+            letter-spacing: 1px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-left: 30px;
+        }
+        
+        .nav-link {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--primary-color);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--light-color);
+            transition: var(--transition);
+        }
+        
+        .main-nav {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            max-height: 800px;
+            background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/605990420.jpg?k=a238f8a25647b1d41becd48d5df6417edefb4895b26a2c73b97e9d5529665ba8&o=');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .main-nav::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+            z-index: 1;
+        }
+
+        .main-nav-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 100px 40px 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--light-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+        }
+
+        .nav-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .nav-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+        }
+
+        .nav-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--light-color);
+            padding: 8px 15px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--primary-color);
+        }
+        
+        .main-nav-links a {
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .main-nav-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-content button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            font-weight: 600;
+        }
+
+        .nav-content button:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        section {
+            background-color: var(--secondary-color);
+            padding: 60px 40px;
+            border-radius: 15px;
+            margin: 40px auto;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .content-section {
+            padding: 80px 40px;
+            text-align: center;
+            background-color: var(--light-color);
+        }
+
+        .block {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            min-height: 400px;
+            margin: 40px auto;
+            background: var(--secondary-color);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .block p{
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .facilitiies {
+            padding: 80px 40px;
+            background-color: var(--secondary-color);
+            text-align: center;
+        }
+
+        .contact-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        .contact-group {
+            flex: 1;
+            min-width: 300px;
+            background: var(--light-color);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .contact-group:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.2);
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* Image container styling for all devices */
+        .image-container {
+            flex: 1;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 300px;
+        }
+        
+        .text-container {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (max-width: 900px) {
+            .block {
+                flex-direction: column;
+            }
+            
+            .main-nav {
+                height: 80vh;
+                min-height: 500px;
+            }
+            
+            .nav-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-content p {
+                font-size: 1.2rem;
+            }
+            
+            /* Mobile Navigation */
+            .hamburger {
+                display: block;
+                z-index: 101;
+            }
+            
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                gap: 0;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.95);
+                width: 100%;
+                height: 100vh;
+                text-align: center;
+                transition: 0.3s;
+                padding-top: 100px;
+            }
+            
+            .nav-item {
+                margin: 25px 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            /* Make navbar non-static on mobile */
+            .navbar {
+                position: absolute;
+            }
+            
+            /* Remove the fixed position on scroll for mobile */
+            .navbar.scrolled {
+                position: absolute;
+            }
+            
+            /* Improved mobile image display */
+            .image-container {
+                order: 0;
+                height: 250px;
+                min-height: 250px;
+                width: 100%;
+                border-radius: 15px 15px 0 0;
+            }
+            
+            .text-container {
+                order: 1;
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .main-nav-top {
+                flex-direction: column;
+                gap: 20px;
+                padding-top: 20px;
+            }
+            
+            .nav-content h2 {
+                font-size: 2rem;
+            }
+            
+            .content-section, .facilitiies, section {
+                padding: 50px 20px;
+            }
+            
+            .contact-columns {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .block {
+                flex-direction: column;
+                margin: 30px auto;
+            }
+
+            .block > div {
+                flex: 1 1 100%;
+            }
+
+            /* Improved mobile image display */
+            .image-container {
+                height: 220px;
+                min-height: 220px;
+                border-radius: 15px 15px 0 0;
+            }
+            
+            .text-container {
+                padding: 20px;
+            }
+            
+            /* Button styling for mobile */
+            .block button {
+                width: 100%;
+                margin-top: 15px;
+            }
+            
+            /* Ensure navbar is not fixed on mobile screens */
+            .navbar {
+                position: absolute !important;
+            }
+            
+            .navbar.scrolled {
+                position: absolute !important;
+            }
+        }
+        
+        /* Additional optimization for very small screens */
+        @media (max-width: 400px) {
+            .image-container {
+                height: 200px;
+                min-height: 200px;
+            }
+            
+            .nav-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .nav-content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Responsive Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h2>ZOURU BRAVO MOTEL</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a href="offers.html" class="nav-link">ROOMS & SERVICES</a>
+                </li>
+                <li class="nav-item">
+                    <a href="gallery.html" class="nav-link">GALLERY</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact us.html" class="nav-link">CONTACT US</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-nav">
+        <div class="main-nav-top">
+            <div class="logo"> 
+                <h2></h2>
+            </div>
+        </div>
+        <div class="nav-content">
+            <h2>ZOURU BRAVO MOTEL</h2>
+            <p>Where charm meets calm</p>
+            <button id="bookNowBtn">Book With Us</button>
+        </div>
+    </div>
+
+    <!-- ======= NEW OFFERS CONTENT WITH IMAGES ======= -->
+    <div class="content-section">
+        <h1>Our Exceptional Services</h1>
+        <p style="max-width: 800px; margin: 0 auto 40px; text-align: center;">
+            At ZOURU BRAVO MOTEL, we take pride in delivering personalized service that exceeds expectations. 
+            Our dedicated team ensures every guest experiences the perfect blend of Rwandan hospitality 
+            and modern comfort, creating memories that last a lifetime.
+        </p>
+
+        <!-- Luxury Accommodations Block -->
+        <div class="block">
+            <div class="text-container">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"> single Room $40/ night</h2>
+              <p>Our single room is a simple and affordable option for solo travelers. It includes a cozy single bed, a work desk, and a private bathroom  ideal for a restful night in a clean and quiet environment.</p>
+                <button style="background-color: var(--primary-color); color: white; border: none; padding: 12px 30px; font-size: 1rem; border-radius: 30px; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 8px rgba(0,0,0,0.2); font-weight: 600;">Book a Room</button>
+            </div>
+            <div class="image-container" style="background-image: url('z image/IMG-20250807-WA0025.jpg');"></div>
+        </div>
+
+        <!-- Event Hosting Block -->
+        <div class="block">
+            <div class="image-container" style="background-image: url('z image/IMG-20250807-WA0026.jpg');"></div>
+            <div class="text-container">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"> Deluxe Double Room   $55/night</h2>
+              <p> Stylish and well-furnished, our deluxe double room features a spacious bed, elegant decor, and a private bathroom. It is an excellent choice for couples or guests who enjoy a little extra comfort during their stay.</p>
+                <button style="background-color: var(--primary-color); color: white; border: none; padding: 12px 30px; font-size: 1rem; border-radius: 30px; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 8px rgba(0,0,0,0.2); font-weight: 600;">Book a Room</button>
+            </div>
+        </div>
+
+        <!-- Dining Experiences Block -->
+        <div class="block">
+            <div class="text-container">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;">Apartment with 1 Double Room  $90/night</h2>
+              <p>This one-bedroom apartment offers a peaceful and private space for couples or solo travelers. It comes with a comfortable double bed, a small lounge, a kitchenette, and a private bathroom  perfect for a relaxed and quiet stay.</p>
+                <button style="background-color: var(--primary-color); color: white; border: none; padding: 12px 30px; font-size: 1rem; border-radius: 30px; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 8px rgba(0,0,0,0.2); font-weight: 600;">Book a Room</button>
+            </div>
+            <div class="image-container" style="background-image: url('z image/single room.jpg');"></div>
+        </div>
+        
+        <div class="block">
+            <div class="image-container" style="background-image: url('z image/double room.jpg');"></div>
+            <div class="text-container">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"> Apartment with 2 Double Rooms  $150/night</h2>
+               <p>Perfect for small families or friends traveling together, this apartment includes two cozy double rooms, a shared living space, a clean bathroom, and a functional kitchen. It offers both comfort and privacy for your stay.</p>
+                <button style="background-color: var(--primary-color); color: white; border: none; padding: 12px 30px; font-size: 1rem; border-radius: 30px; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 8px rgba(0,0,0,0.2); font-weight: 600;">Book a Room</button>
+            </div>
+        </div>
+        
+        <div class="block">
+            <div class="text-container">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;">Apartment with 3 Double Room  $210/night</h2>
+              <p>Ideal for families or groups, this spacious apartment features three comfortable double rooms, a fully equipped kitchen, a living and dining area, and a private bathroom. Enjoy a home-like experience with all the essentials you need for a relaxing stay.</p>
+                <button style="background-color: var(--primary-color); color: white; border: none; padding: 12px 30px; font-size: 1rem; border-radius: 30px; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 8px rgba(0,0,0,0.2); font-weight: 600;">Book a Room</button>
+            </div>
+            <div class="image-container" style="background-image: url('z image/WhatsApp Image 2025-08-07 at 19.15.58_73b94035.jpg');"></div>
+        </div>
+        
+        <div class="block">
+            <div class="text-container">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;">Dining Experiences</h2>
+                <ul style="margin-bottom: 30px; padding-left: 20px;">
+                    <li style="margin-bottom: 10px;">Lakeside Fine Dining</li>
+                    <li style="margin-bottom: 10px;">Traditional Rwandan Cuisine</li>
+                    <li style="margin-bottom: 10px;">Sunset Cocktails</li>
+                    <li style="margin-bottom: 10px;">Private Dining</li>
+                </ul>
+                <button style="background-color: var(--primary-color); color: white; border: none; padding: 12px 30px; font-size: 1rem; border-radius: 30px; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 8px rgba(0,0,0,0.2); font-weight: 600;">Reserve a Table</button>
+            </div>
+            <div class="image-container" style="background-image: url('z image/IMG-20250807-WA0006.jpg');"></div>
+        </div>
+
+        <!-- Additional Services Block -->
+        <div class="block">
+            <div class="image-container" style="background-image: url('z image/other services.jpg');"></div>
+            <div class="text-container">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;">Additional Services</h2>
+                <ul style="margin-bottom: 30px; padding-left: 20px;">
+                    <li style="margin-bottom: 10px;">Airport Transfers</li>
+                    <li style="margin-bottom: 10px;">Guided Lake Tours</li>
+                    <li style="margin-bottom: 10px;">Spa & Wellness</li>
+                    <li style="margin-bottom: 10px;">Cultural Excursions</li>
+                </ul>
+                <button style="background-color: var(--primary-color); color: white; border: none; padding: 12px 30px; font-size: 1rem; border-radius: 30px; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 8px rgba(0,0,0,0.2); font-weight: 600;">Inquire Now</button>
+            </div>
+        </div>
+    </div>
+    <!-- ======= END OF NEW OFFERS CONTENT ======= -->
+
+    <section>
+        <h1>Contact Details</h1>
+        <div class="contact-columns">
+            <div class="contact-group">
+                <h3>General Inquiries</h3>
+                <p>Email: zourubravomotel@gmail.com</p>
+                <p>Phone:+250 794 909 180</p>
+                <p>Phone:+250 794 909 180</p>
+                <p>Address: Gisenyi, Rubavu, Rwanda</p>
+            </div>
+    
+            <div class="contact-group">
+                <h3>Reservations</h3>
+                <p>Email: zourubravomotel@gmail.com</p>
+                <p>Phone: +250 794 909 180</p>
+                <p>WhatsApp: +250 794 909 180</p>
+                <p>Open: 24/7</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Booking Form Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="margin-bottom: 20px;">Book Your Stay</h2>
+            <form id="bookingForm" action="https://formspree.io/f/mqalglgy" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">Number of Guests</label>
+                        <input type="number" id="guests" name="guests" min="1" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="checkin">Check-in Date</label>
+                        <input type="date" id="checkin" name="checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout">Check-out Date</label>
+                        <input type="date" id="checkout" name="checkout" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="room-type">Room Type</label>
+                    <select id="room-type" name="room-type" required>
+                    <option value="">Select Room Type</option>
+                        <option value="apartment3rooms">Apartment  with 3 double room </option>
+                        <option value="deluxedoubleroom"> Deluxe double room </option>
+                        <option value="single room">Single Room</option>
+                         <option value="apartment1room">Apartment  with 1 double room</option>
+                           <option value="apartment2room">Apartment  with 2 double room</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Special Requests</label>
+                    <textarea id="message" name="message" rows="4"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Booking Request</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-menu");
+        const navbar = document.querySelector(".navbar");
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+        });
+
+        document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+        }));
+
+        // Navbar scroll effect - only apply fixed position on larger screens
+        window.addEventListener("scroll", () => {
+            if (window.innerWidth > 900) {
+                if (window.scrollY > 50) {
+                    navbar.classList.add("scrolled");
+                } else {
+                    navbar.classList.remove("scrolled");
+                }
+            } else {
+                // On mobile, always remove the scrolled class to prevent fixed positioning
+                navbar.classList.remove("scrolled");
+            }
+        });
+
+        // Get the modal and buttons
+        const modal = document.getElementById("bookingModal");
+        const closeBtn = document.getElementsByClassName("close")[0];
+        const bookButtons = document.querySelectorAll('.block button');
+        const bookNowBtn = document.getElementById("bookNowBtn");
+        
+        // Open modal when any booking button is clicked
+        bookButtons.forEach(button => {
+            button.onclick = function(e) {
+                e.preventDefault();
+                modal.style.display = "block";
+            }
+        });
+        
+        // Open modal when Book With Us button is clicked
+        bookNowBtn.onclick = function() {
+            modal.style.display = "block";
+        }
+        
+        // Close modal when X is clicked
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        
+        // Form submission handling
+        const form = document.getElementById("bookingForm");
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Request sent successfully!");
+                    form.reset();
+                    modal.style.display = "none";
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                alert("There was a problem with your submission. Please try again.");
+                console.error('Error:', error);
+            });
+        });
+
+        // Set minimum date for check-in to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById("checkin").min = today;
+        
+        // Update checkout min date when checkin changes
+        document.getElementById("checkin").addEventListener('change', function() {
+            document.getElementById("checkout").min = this.value;
+        });
+    </script>
+</body>
+</html>
